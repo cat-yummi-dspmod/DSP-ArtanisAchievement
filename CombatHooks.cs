@@ -24,8 +24,9 @@ namespace ArtanisAchievement
         [HarmonyPrefix]
         [HarmonyPatch(typeof(SpaceSector), nameof(SpaceSector.KillEnemyFinal))]
         [CatAPI.Guard("cb31108bc5305076")]
-        public static void SpaceSector_KillEnemyFinal_Prefix(SpaceSector __instance, int enemyId)
+        public static void SpaceSector_KillEnemyFinal_Prefix(SpaceSector __instance, int enemyId, ref CombatStat combatStat)
         {
+            RecordMechaKill(__instance.enemyPool, enemyId, ref combatStat);
             EnemyData[] pool = __instance.enemyPool;
             if (enemyId <= 0 || pool == null || enemyId >= pool.Length)
             {
@@ -48,6 +49,25 @@ namespace ArtanisAchievement
         }
 
         [HarmonyPrefix]
+        [HarmonyPatch(typeof(PlanetFactory), nameof(PlanetFactory.KillEnemyFinally))]
+        [CatAPI.Guard("e83f0731e4b18ba0")]
+        public static void PlanetFactory_KillEnemyFinally_Prefix(PlanetFactory __instance, int enemyId, ref CombatStat combatStat)
+        {
+            RecordMechaKill(__instance.enemyPool, enemyId, ref combatStat);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(PlayerAction_Combat), nameof(PlayerAction_Combat.ShieldBurst))]
+        [CatAPI.Guard("9442e06fa083a721")]
+        public static void PlayerAction_Combat_ShieldBurst_Postfix(PlayerAction_Combat __instance)
+        {
+            if (__instance.player != null && __instance.player == GameMain.mainPlayer)
+            {
+                CombatEvents.OnShieldBurst();
+            }
+        }
+
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(Mecha), nameof(Mecha.UpdateCombatStats))]
         [CatAPI.Guard("e0c3d2d8aa654f22")]
         public static void Mecha_UpdateCombatStats_Prefix(Mecha __instance, out long __state)
@@ -66,6 +86,19 @@ namespace ArtanisAchievement
             if (gain > 0 && __instance.player != null && __instance.player == GameMain.mainPlayer)
             {
                 CombatEvents.OnShieldGain(gain);
+            }
+        }
+
+        /// <summary>致命一击来自伊卡洛斯（caster 为 Player 1）的黑雾击杀。 / A Dark Fog kill whose last hit came from Icarus (caster Player 1).</summary>
+        static void RecordMechaKill(EnemyData[] pool, int enemyId, ref CombatStat combatStat)
+        {
+            if (enemyId <= 0 || pool == null || enemyId >= pool.Length || pool[enemyId].id != enemyId)
+            {
+                return;
+            }
+            if (combatStat.lastCaster.type == ETargetType.Player && combatStat.lastCaster.id == 1)
+            {
+                CombatEvents.OnMechaKill();
             }
         }
 

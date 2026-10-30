@@ -28,6 +28,12 @@ namespace ArtanisAchievement
         static readonly HashSet<int> killedAssaultUnits = new HashSet<int>();
         static long lastMechaShipLossTick = long.MinValue;
 
+        /// <summary>能量盾爆破持续 45 tick，敌人血量归零后要再过几 tick 才移除，所以多留 30 tick。
+        /// An Energy Shell Burst lasts 45 ticks and a dead enemy is removed a few ticks after reaching zero hp, so 30 extra ticks are allowed.</summary>
+        const long BurstWindow = 45 + 30;
+        static long burstStartTick = long.MinValue;
+        static int burstKills;
+
         internal static void Reset()
         {
             lock (sync)
@@ -40,6 +46,43 @@ namespace ArtanisAchievement
                 coreKillStars.Clear();
                 killedAssaultUnits.Clear();
                 lastMechaShipLossTick = long.MinValue;
+                burstStartTick = long.MinValue;
+                burstKills = 0;
+            }
+        }
+
+        internal static void OnShieldBurst()
+        {
+            long tick = GameMain.gameTick;
+            lock (sync)
+            {
+                burstStartTick = tick;
+                burstKills = 0;
+            }
+        }
+
+        /// <summary>伊卡洛斯造成的黑雾击杀。爆破窗口内的都算作这次爆破的击杀。
+        /// A Dark Fog kill credited to Icarus. Kills inside a burst window count for that burst.</summary>
+        internal static void OnMechaKill()
+        {
+            long tick = GameMain.gameTick;
+            lock (sync)
+            {
+                if (burstStartTick != long.MinValue && tick >= burstStartTick && tick <= burstStartTick + BurstWindow)
+                {
+                    burstKills++;
+                }
+            }
+        }
+
+        internal static int BurstKills
+        {
+            get
+            {
+                lock (sync)
+                {
+                    return burstKills;
+                }
             }
         }
 

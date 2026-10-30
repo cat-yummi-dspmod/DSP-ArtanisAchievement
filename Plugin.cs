@@ -12,7 +12,7 @@ namespace ArtanisAchievement
     {
         public const string PluginGuid = "com.yummi.dsp.artanisachievement";
         public const string PluginName = "Artanis Achievement";
-        public const string PluginVersion = "0.2.0";
+        public const string PluginVersion = "0.0.0";
         public const string GitHubUrl = "https://github.com/cat-yummi-dspmod/DSP-ArtanisAchievement";
 
         private static readonly Harmony harmony = new Harmony(PluginGuid);

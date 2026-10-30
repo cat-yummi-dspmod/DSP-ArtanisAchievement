@@ -11,6 +11,7 @@ namespace ArtanisAchievement
 
         internal const int ShieldTarget = 20000;
         internal const int LossTarget = 152;
+        internal const int BurstKillTarget = 50;
 
         internal static Achievement ActivatingShields;
         internal static Achievement WellDone;
@@ -19,6 +20,7 @@ namespace ArtanisAchievement
         internal static Achievement CouldNotHold;
         internal static Achievement GreatLosses;
         internal static Achievement MustRegroup;
+        internal static Achievement EmbraceGlory;
 
         internal static void Register()
         {
@@ -57,6 +59,11 @@ namespace ArtanisAchievement
                 AchText.En("I must regroup my forces.").ZhCN("我得重新集结部队"),
                 AchText.En("Lose 152 Destroyers within 5 minutes.").ZhCN("5分钟内阵亡152个驱逐舰。"),
                 LossTarget);
+
+            EmbraceGlory = Add(mod, "embrace-glory",
+                AchText.En("We embrace the glory of battle.").ZhCN("拥抱战斗的荣耀"),
+                AchText.En("Destroy 50 or more Dark Fog units with a single Energy Shell Burst.").ZhCN("用能量盾爆破一次性消灭50个以上黑雾单位。"),
+                BurstKillTarget);
         }
 
         static Achievement Add(AchievementMod mod, string key, AchText name, AchText description, long target = 1)

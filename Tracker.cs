@@ -56,6 +56,7 @@ namespace ArtanisAchievement
 
             CheckShield(now);
             CheckLosses(now);
+            Raise(Achievements.EmbraceGlory, CombatEvents.BurstKills);
             CheckCoreKills(now);
             CheckAssaults(now, data);
         }

@@ -77,6 +77,17 @@ New-Icon 'great-losses' {
     $g.DrawLine($pen, 128, 110, 128, 150)
 }
 
+# 拥抱战斗的荣耀：护盾圈向外爆散的光芒 / We embrace the glory of battle: rays bursting out of a shield ring
+New-Icon 'embrace-glory' {
+    param($g, $pen, $brush)
+    $g.DrawEllipse($pen, 98, 98, 60, 60)
+    for ($i = 0; $i -lt 8; $i++) {
+        $a = $i * [Math]::PI / 4
+        $c = [Math]::Cos($a); $s = [Math]::Sin($a)
+        $g.DrawLine($pen, [float](128 + 46 * $c), [float](128 + 46 * $s), [float](128 + 84 * $c), [float](128 + 84 * $s))
+    }
+}
+
 # 驱逐舰：长舰体 + 两翼 / Destroyer: long hull with wings
 New-Icon 'must-regroup' {
     param($g, $pen, $brush)

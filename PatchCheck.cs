@@ -21,7 +21,9 @@ namespace ArtanisAchievement
             {
                 new Hook { Target = AccessTools.Method(typeof(SpaceSector), nameof(SpaceSector.KillCraftFinal)), Name = "SpaceSector.KillCraftFinal", Affects = "My forces have suffered great loss, I must regroup my forces, Well fought" },
                 new Hook { Target = AccessTools.Method(typeof(PlanetFactory), nameof(PlanetFactory.KillCraftFinally)), Name = "PlanetFactory.KillCraftFinally", Affects = "The battle has turned against my warriors, My warriors could not hold" },
-                new Hook { Target = AccessTools.Method(typeof(SpaceSector), nameof(SpaceSector.KillEnemyFinal)), Name = "SpaceSector.KillEnemyFinal", Affects = "You have done well, Well fought" },
+                new Hook { Target = AccessTools.Method(typeof(SpaceSector), nameof(SpaceSector.KillEnemyFinal)), Name = "SpaceSector.KillEnemyFinal", Affects = "You have done well, Well fought, We embrace the glory of battle" },
+                new Hook { Target = AccessTools.Method(typeof(PlanetFactory), nameof(PlanetFactory.KillEnemyFinally)), Name = "PlanetFactory.KillEnemyFinally", Affects = "We embrace the glory of battle" },
+                new Hook { Target = AccessTools.Method(typeof(PlayerAction_Combat), nameof(PlayerAction_Combat.ShieldBurst)), Name = "PlayerAction_Combat.ShieldBurst", Affects = "We embrace the glory of battle" },
                 new Hook { Target = AccessTools.Method(typeof(Mecha), nameof(Mecha.UpdateCombatStats)), Name = "Mecha.UpdateCombatStats", Affects = "Activating shields!" },
             };
 
