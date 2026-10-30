@@ -7,6 +7,8 @@ https://github.com/cat-yummi-dspmod/DSP-ArtanisAchievement
 
 Eight Artanis-themed combat achievements. They appear under the "Mod Achievements" button in Statistics → Achievements (from CustomAchievements).
 
+![achievements](https://raw.githubusercontent.com/cat-yummi-dspmod/DSP-ArtanisAchievement/main/preview/achievements_en.png)
+
 | Achievement | Condition |
 |---|---|
 | Activating shields! | Icarus regenerates 20,000 shield within 10 seconds. |
@@ -34,6 +36,8 @@ Details:
 <summary>中文</summary>
 
 8 个阿塔尼斯主题的战斗成就。在 统计 → 成就 面板点左上角"MOD成就"按钮查看（CustomAchievements 提供）。
+
+![成就](https://raw.githubusercontent.com/cat-yummi-dspmod/DSP-ArtanisAchievement/main/preview/achievements_zh.png)
 
 | 成就 | 条件 |
 |---|---|
