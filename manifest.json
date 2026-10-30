@@ -1,0 +1,11 @@
+{
+  "name": "ArtanisAchievement",
+  "description": "Artanis-themed combat achievements against the Dark Fog. | 荣耀贩子：阿塔尼斯主题的黑雾战斗成就。",
+  "version_number": "0.2.0",
+  "website_url": "https://github.com/cat-yummi-dspmod/DSP-ArtanisAchievement",
+  "dependencies": [
+    "xiaoye97-BepInEx-5.4.17",
+    "cat_yummi-CatAPI-0.2.4",
+    "cat_yummi-CustomAchievements-0.2.0"
+  ]
+}
